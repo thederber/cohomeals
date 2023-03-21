@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title> Update {{ day.date }} </title>
+{% endblock %}
+
+{% block body %}
+<div class="update_content">
+    <div class="update_form">
+	<form action="/update/{{ day.id }}" method="POST">
+		<div>
+		<table class="update_table">
+			<tr>
+				<td class='update'><label>Cook:</label></td>
+				<td class='update'><input class='textinput' type="text" name="cook" value="{{ day.cook }}"> </td>
+			</tr>
+			<tr>
+				<td class='update'><label>Assist:</label></td>
+				<td class='update'><input class='textinput' type="text" name="assist" value="{{ day.assist }}"> </td>
+			</tr>
+			<tr>
+				<td class='update'><label>Clean1:</label></td>
+				<td class='update'><input class='textinput' type="text" name="clean1" value="{{ day.clean1 }}"> </td>
+			</tr>
+			<tr>
+				<td class='update'><label>Clean2:</label></td>
+				<td class='update'><input class='textinput' type="text" name="clean2" value="{{ day.clean2 }}"> </td>
+			</tr>
+		</table>
+		</div>
+		<div class="update_buttons">
+	      		<input type="submit" name="click" value="Submit">
+	      		<input type="submit" name="click" value="Cancel">
+		</div>
+	</form>
+    </div>
+</div>
+{% endblock %}

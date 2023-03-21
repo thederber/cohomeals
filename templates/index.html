@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+<script>
+	function update(id) {
+
+		location.href = '/update/' + id;
+	}
+</script>
+
+{% block head %}
+<img src="{{ url_for('static',filename='italianfood.jpeg') }}" align="top">
+<title> Coho Meal Scheduler </title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+	<h1>Coho Meal Scheduler</h1>
+	<table class="index" id="schedule">
+		<tr>
+			<th>Sun</th>
+			<th>Mon</th>
+			<th>Tues</th>
+			<th>Wed</th>
+			<th>Thu</th>
+			<th>Fri</th>
+			<th>Sat</th>
+		</tr>
+		{% for day in days %}
+			{% if day.day_name == 'Sun' %}
+				<tr>
+			{% endif %}
+			<td>
+					<a href="/update/{{ day.id }}">
+					  <div class="table_date">
+							  <b>{{ day.date.strftime("%b %d, %Y") }}</b>
+
+					  </div>
+					  <div class="table_labels">
+							  <p><b>Cook:</b></p>
+							  <p><b>Assist:</b></p>
+							  <p><b>Clean1:</b></p>
+							  <p><b>Clean2:</b></p>
+				      </div>
+					  <div class="table_names">
+							  <p>{{ day.cook }}</p>
+							  <p>{{ day.assist }}</p>
+							  <p>{{ day.clean1 }}</p>
+							  <p>{{ day.clean2 }}</p>
+					  </div>
+					</a>
+				</td>
+			{% if day.day_name == 'Sat' %}
+				</tr>
+			{% endif %}
+		{% endfor %}
+	</table>
+
+</div>
+{% endblock %}
