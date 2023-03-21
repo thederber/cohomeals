@@ -1,38 +1,62 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title> Update {{ day.date }} </title>
+<title> Update {{ day.date.strftime("%a %b %d, %Y") }} </title>
 {% endblock %}
 
 {% block body %}
-<div class="update_content">
-    <div class="update_form">
+<div class="update-body">
+<h4 style="text-align: center;"> Add your name to one of the white boxes below to sign up for the meal on:</h4>
+<h3 style="text-align: center;">{{ day.date.strftime("%a %b %d, %Y") }}</h3>
+
+<div class="update-content">
+    <div class="update-form">
 	<form action="/update/{{ day.id }}" method="POST">
 		<div>
-		<table class="update_table">
+		<table class="update-table">
 			<tr>
-				<td class='update'><label>Cook:</label></td>
-				<td class='update'><input class='textinput' type="text" name="cook" value="{{ day.cook }}"> </td>
+				<th class='update'><label class="cook">Cook :</label></th>
+			{% if (day.cook == "Unassigned") %}
+				<td class='update'><input class='textinput' type="text" name="cook" placeholder='Unassigned' maxlength=12> </td>
+			{% else %}
+				<td class='update'><p class="cook" style="text-align: center; font-size: large;">{{ day.cook }}</p></td>
+			{% endif %}
 			</tr>
+
 			<tr>
-				<td class='update'><label>Assist:</label></td>
-				<td class='update'><input class='textinput' type="text" name="assist" value="{{ day.assist }}"> </td>
+				<th class='update'><label class="assist">Assist :</label></th>
+			{% if (day.assist == "Unassigned") %}
+				<td class='update'><input class='textinput' type="text" name="assist" placeholder='Unassigned' maxlength=12> </td>
+			{% else %}
+				<td class='update'><p class="assist" style="text-align: center; font-size: large;">{{ day.assist }}</p></td>
+			{% endif %}
 			</tr>
+
 			<tr>
-				<td class='update'><label>Clean1:</label></td>
-				<td class='update'><input class='textinput' type="text" name="clean1" value="{{ day.clean1 }}"> </td>
+				<th class='update'><label class="clean1">Cleaner 1 :</label></th>
+			{% if (day.clean1 == "Unassigned") %}
+				<td class='update'><input class='textinput' type="text" name="clean1" placeholder='Unassigned' maxlength=12> </td>
+			{% else %}
+				<td class='update'><p class="clean1" style="text-align: center; font-size: large;">{{ day.clean1 }}</p></td>
+			{% endif %}
 			</tr>
+
 			<tr>
-				<td class='update'><label>Clean2:</label></td>
-				<td class='update'><input class='textinput' type="text" name="clean2" value="{{ day.clean2 }}"> </td>
+				<th class='update'><label class="clean2">Cleaner 2 :</label></th>
+			{% if (day.clean2 == "Unassigned") %}
+				<td class='update'><input class='textinput' type="text" name="clean2" placeholder='Unassigned' maxlength=12> </td>
+			{% else %}
+				<td class='update'><p class="clean2" style="text-align: center; font-size: large;">{{ day.clean2 }}</p></td>
+			{% endif %}
 			</tr>
 		</table>
 		</div>
-		<div class="update_buttons">
+		<div class="update-buttons">
 	      		<input type="submit" name="click" value="Submit">
-	      		<input type="submit" name="click" value="Cancel">
+	      		<input type="submit" name="click" value="Discard Changes">
 		</div>
 	</form>
     </div>
+</div>
 </div>
 {% endblock %}

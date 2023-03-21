@@ -4,7 +4,8 @@ from datetime import datetime,timedelta
 import pandas
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Days'
+dbname = "Days"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{0}'.format(dbname)
     
 db = SQLAlchemy(app)
 
@@ -13,10 +14,10 @@ class Day(db.Model):
     date = db.Column(db.DateTime)
     day_name = db.Column(db.String(50),nullable=False)
     row_index = db.Column(db.Integer,default=0)
-    cook = db.Column(db.String(200),default='Unassigned',nullable=False)
-    assist = db.Column(db.String(200),default='Unassigned',nullable=False)
-    clean1 = db.Column(db.String(200),default='Unassigned',nullable=False)
-    clean2 = db.Column(db.String(200),default='Unassigned',nullable=False)
+    cook = db.Column(db.String(10),default='Unassigned',nullable=False)
+    assist = db.Column(db.String(10),default='Unassigned',nullable=False)
+    clean1 = db.Column(db.String(10),default='Unassigned',nullable=False)
+    clean2 = db.Column(db.String(10),default='Unassigned',nullable=False)
     date_created = db.Column(db.DateTime,default=datetime.utcnow)
     def __repr__(self):
         return '<Day %r>' % self.id
@@ -78,14 +79,21 @@ def update(id):
     jobs = ['cook','assist','clean1','clean2']
     day_to_update = Day.query.get_or_404(id)
     if request.method == 'POST':
-        if request.form.get('click') == 'Cancel':
+        if request.form.get('click') == 'Discard Changes':
             return redirect('/')
-        
-        for i in range(len(jobs)):
-            name_in_textbox = request.form.get(jobs[i])
-            if len(name_in_textbox) == 0: 
-                name_in_textbox = "Unassigned"
-            exec("day_to_update.{0} = name_in_textbox".format(jobs[i]))
+        #update database with updated name
+        for jobname in jobs:
+            try:
+                name_in_textbox = request.form[jobname]
+            except:
+                continue #job was not in update form because it is already assigned--see update.html jinja logic
+
+            if len(name_in_textbox.strip()) == 0: 
+                #silly goose tried to submit empty name
+                continue
+
+            exec("day_to_update.{0} = name_in_textbox".format(jobname))
+
         try:
             db.session.commit()
             return redirect('/')
