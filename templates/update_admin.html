@@ -11,28 +11,23 @@
 
 <div class="update-content">
     <div class="update-form">
-	<form action="/update/{{ day.id }}" method="POST">
+	<form action="/update_admin/{{ day.id }}" method="POST">
 		<div>
 		<table class="update-table">
 			{% set jobkeys = ["cook","assist","clean1","clean2"] %}
-                        {% set jobdesc = ["Cook","Assist","Cleaner 1","Cleaner 2"] %}
+			{% set jobdesc = ["Cook","Assist","Cleaner 1","Cleaner 2"] %}
 			{% set jobnames = [day.cook,day.assist,day.clean1,day.clean2] %}
 			{% for i in range(4) %}
 				<tr>
 					<th class='update'><label class="{{ jobkeys[i] }}">{{ jobdesc[i] }} :</label></th>
-				{% if (jobnames[i] == "Unassigned") %}
-				<td class='update'><input class='textinput' type="text" name="{{ jobkeys[i] }}" placeholder='Unassigned' maxlength=12> </td>
-				{% else %}
-				<td class='update'><p class="{{ jobkeys[i] }}" style="text-align: center; font-size: large;">{{ jobnames[i] }}</p></td>
-				{% endif %}
+					<td class='update'><input class='textinput' type="text" name="{{ jobkeys[i] }}" value="{{ jobnames[i] }}" maxlength=12> </td>
 				</tr>
 			{% endfor %}
+
 		</table>
 		</div>
 		<div class="update-buttons">
-			{% if ("Unassigned" in jobnames) %}
-	      			<input type="submit" name="click" value="Submit">
-			{% endif %}
+	      		<input type="submit" name="click" value="Submit">
 	      		<input type="submit" name="click" value="Discard Changes/Go Back">
 		</div>
 	</form>

@@ -4,19 +4,12 @@
 <div class="header-image">
 	<img src="{{ url_for('static',filename='italianfood.jpeg') }}">
 </div>
-<div class="admin-login">
-	<form action="/" method="POST">
-		<label>Admin? Enter password:</label><br>
-		<input class='textinput' type="text" name="admin_password" placeholder='password'>
-		<input type="submit" name="click" value="Submit">
-	</form>
-</div>
 <title> Coho Meal Scheduler </title>
 {% endblock %}
 
 {% block body %}
 <div class="index-content">
-	<h1>Coho Meal Scheduler</h1>
+	<h1>Coho Meal Scheduler (ADMIN version)</h1>
 	<div class="index-intro">
 	<h3>Important info:</h3>
 	<ul>
@@ -64,7 +57,7 @@
 			{% endif %}
 
 				<div class="centerbox">
-					<a href="/update/{{ day.id }}">
+					<a href="/update_admin/{{ day.id }}">
 					  <div class="table-date">
 							  <b>{{ day.date.strftime("%b %d, %Y") }}</b>
 
