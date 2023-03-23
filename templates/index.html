@@ -1,17 +1,28 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<div class="header-image">
-	<img src="{{ url_for('static',filename='italianfood.jpeg') }}">
-</div>
+
 <div class="admin-login">
+{% if not admin %}
 	<form action="/" method="POST">
 		<label>Admin? Enter password:</label><br>
 		<input class='textinput' type="text" name="admin_password" placeholder='password'>
 		<input type="submit" name="click" value="Submit">
 	</form>
+	{% if error %}
+        <p class=error>Error: {{ error }}</p>
+    {% endif %}
+{% else %}
+	<p class=success>Logged in as admin!</p>
+{% endif %}
 </div>
+
+<div class="header-image">
+	<img src="{{ url_for('static',filename='italianfood.jpeg') }}">
+</div>
+
 <title> Coho Meal Scheduler </title>
+
 {% endblock %}
 
 {% block body %}
@@ -76,30 +87,19 @@
 							  <p class="clean2"><b>Cleaner 2 :</b></p>
 				      </div>
 					  <div class="table-names">
-							  {% if (day.cook != "Unassigned") %}
-							    <p class="cook">
-							  {% else %}
-							  	<p class="placeholder">
-							  {% endif %}
-							  {{ day.cook }}</p>
-							  {% if (day.assist != "Unassigned") %}
-							  	<p class="assist">
-							  {% else %}
-							  	<p class="placeholder">
-							  {% endif %}
-							  {{ day.assist }}</p>
-							  {% if (day.clean1 != "Unassigned") %}
-							  	<p class="clean1">
-							  {% else %}
-							  	<p class="placeholder">
-							  {% endif %}
-							  {{ day.clean1 }}</p>
-							  {% if (day.clean2 != "Unassigned") %}
-							  	<p class="clean2">
-							  {% else %}
-							  	<p class="placeholder">
-							  {% endif %}
-							  {{ day.clean2 }}</p>
+							  {% set jobkeys = ["cook","assist","clean1","clean2"] %}
+            				  {% set jobnames = [day.cook,day.assist,day.clean1,day.clean2] %}
+							  {% for i in range(4) %}
+							    
+							  	{% if (jobnames[i] != "Unassigned") %}
+							  		<p class="{{ jobkeys[i] }}">
+							  	{% else %}
+							  		<p class="placeholder">
+							  	{% endif %}
+							  	
+								{{ jobnames[i] }}</p>
+							  
+							  {% endfor %}
 					  </div>
 					</a>
 				</div>

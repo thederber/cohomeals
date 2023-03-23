@@ -1,5 +1,6 @@
-body {
+html {
 	font-family: georgia;
+	background-image: linear-gradient(to bottom right,white,black);
 }
 tr {
 	border: 3px solid;
@@ -18,6 +19,15 @@ td a {
 	height:100%;
 	text-decoration: none; /*removes underline*/
 }
+.error {
+	font-size: medium;
+	color: red;
+}
+.success {
+	font-size: medium;
+	color: green;
+}
+
 td:hover:not(.update):not(.nohover) {
     background-image: linear-gradient(to bottom right, orange, lightyellow);
 }
@@ -49,9 +59,10 @@ p.placeholder {
 
 .index-content {
 	padding: 10px;
-	background-image: radial-gradient(white, lightgrey, lightyellow);
+	background-image: radial-gradient(white, lightgrey, orange);
 	margin: 0;
 	width: 1250px;
+	border: 1px solid;
 }
 .index-intro {
 	margin: auto;
@@ -103,9 +114,10 @@ p.placeholder {
 }
 
 .update-body {
-	width: 100%;
-	height: 100%;
-	background-image: linear-gradient(to top left, lightyellow, lightgreen);
+	/*background-image: url('../italianfood.jpeg');
+	 */
+	background-image: linear-gradient(to bottom, white, orange);
+	border: 1px solid;
 }
 .update-content {
 	margin: auto;

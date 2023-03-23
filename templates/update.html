@@ -4,9 +4,24 @@
 <title> Update {{ day.date.strftime("%a %b %d, %Y") }} </title>
 {% endblock %}
 
+{% set jobkeys = ["cook","assist","clean1","clean2"] %}
+{% set jobdesc = ["Cook","Assist","Cleaner 1","Cleaner 2"] %}
+{% set jobnames = [day.cook,day.assist,day.clean1,day.clean2] %}
+
 {% block body %}
 <div class="update-body">
-<h4 style="text-align: center;"> Add your name to one of the white boxes below to sign up for the meal on:</h4>
+	<h4 style="text-align: center;">
+	{% if not admin %}
+		{% if ("Unassigned" in jobnames) %}
+			Add your name to one of the white boxes below to sign up for the meal on:
+		{% else %}
+		    All jobs have been filled for the meal on:
+		{% endif %}
+	{% else %}
+		As admin, you can reassign or delete any name below:
+	{% endif %}
+	</h4>
+
 <h3 style="text-align: center;">{{ day.date.strftime("%a %b %d, %Y") }}</h3>
 
 <div class="update-content">
@@ -14,29 +29,29 @@
 	<form action="/update/{{ day.id }}" method="POST">
 		<div>
 		<table class="update-table">
-			{% set jobkeys = ["cook","assist","clean1","clean2"] %}
-                        {% set jobdesc = ["Cook","Assist","Cleaner 1","Cleaner 2"] %}
-			{% set jobnames = [day.cook,day.assist,day.clean1,day.clean2] %}
 			{% for i in range(4) %}
 				<tr>
 					<th class='update'><label class="{{ jobkeys[i] }}">{{ jobdesc[i] }} :</label></th>
 				{% if (jobnames[i] == "Unassigned") %}
-				<td class='update'><input class='textinput' type="text" name="{{ jobkeys[i] }}" placeholder='Unassigned' maxlength=12> </td>
+					<td class='update'><input class='textinput' type="text" name="{{ jobkeys[i] }}" placeholder='Unassigned' maxlength=40> </td>
+				{% elif admin %}
+					<td class='update'><input class='textinput' type="text" name="{{ jobkeys[i] }}" value="{{ jobnames[i] }}" maxlength=40> </td>
 				{% else %}
-				<td class='update'><p class="{{ jobkeys[i] }}" style="text-align: center; font-size: large;">{{ jobnames[i] }}</p></td>
+					<td class='update'><p class="{{ jobkeys[i] }}" style="text-align: center; font-size: large;">{{ jobnames[i] }}</p></td>
 				{% endif %}
 				</tr>
 			{% endfor %}
 		</table>
 		</div>
+
 		<div class="update-buttons">
-			{% if ("Unassigned" in jobnames) %}
-	      			<input type="submit" name="click" value="Submit">
+			{% if ("Unassigned" in jobnames or admin) %}
+	      			<input type="submit" name="click" value="Submit Changes">
 			{% endif %}
 	      		<input type="submit" name="click" value="Discard Changes/Go Back">
 		</div>
-	</form>
     </div>
-</div>
+	</form>
+  	</div>
 </div>
 {% endblock %}
