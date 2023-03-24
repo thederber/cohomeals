@@ -87,16 +87,20 @@ def index():
         else:
             session['username'] = 'approvedadmin'+datetime.now().strftime('%s') 
     
-    admin = session.get('username').startswith('approvedadmin')
+    admin = session.get('username','').startswith('approvedadmin')
     print("admin = ",admin)
     days = db.session.query(Day).order_by(Day.id).all()
     return render_template('index.html',days=days,admin=admin,error=error)
 
 @app.route('/update/<int:id>',methods = ['GET','POST'])
 def update(id):
+    username = session.get('username','') #'' is default if not yet signed in
+    if not username.startswith('approved'):
+        return redirect(url_for('login'))
+    
     jobs = ['cook','assist','clean1','clean2']
-    day_to_update = Day.query.get_or_404(id)
-    admin = session.get('username').startswith('approvedadmin')
+    day_to_update = db.session.get(Day,id)
+    admin = session.get('username','').startswith('approvedadmin')
     if request.method == 'POST':
         if request.form.get('click') == "Discard Changes/Go Back":
             return redirect(url_for('index'))
