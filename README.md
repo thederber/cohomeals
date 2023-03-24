@@ -3,7 +3,7 @@
 
 # Quick Start
 
-<p>Install python3, then:</p>
+<p>Install python3.8, then:</p>
 
 <code>python3 -m venv env
 source env/bin/activate
