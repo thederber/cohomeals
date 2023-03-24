@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<div class="header-image">
+	<img src="{{ url_for('static',filename='italianfood.jpeg') }}">
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="login">
+	<form action="/login" method="POST">
+		<label>Login with cohomeal password:</label><br>
+		<input class='textinput' type="text" name="coho_password" placeholder='password'>
+		<input type="submit" name="click" value="Submit">
+	</form>
+	{% if error %}
+	<p class=error>Error: {{ error }}</p>
+	{% endif %}
+</div>
+
+{% endblock %}

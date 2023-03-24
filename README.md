@@ -3,7 +3,7 @@
 
 # Quick Start
 
-<p>Install python3, then:</p>
+<p>Install python3.8, then:</p>
 
 <code>python3 -m venv env
 source env/bin/activate
@@ -12,4 +12,4 @@ flask shell < setup\_db.py
 python3 app.py
 </code>
 
-<p>Webpage should open up at http://localhost:5000 </p>
+<p>Webpage should open up at http://localhost:5000. </p>
