@@ -103,7 +103,7 @@ p.placeholder {
 	width: 800px;
 }
 .index-table-area {
-	background-image: radial-gradient(white, lightgrey, #FADA9F);
+	background-color: #BDB89B;
 	background-position: center;
 	overflow: auto;
 	background-size: cover;
@@ -116,7 +116,7 @@ p.placeholder {
 	margin-right: 20px;
 	margin-bottom: 20px;
 	margin-top: 20px;
-	box-shadow: 0 0 8px 8px #FADA9F inset;
+	box-shadow: 0 0 8px 8px #BDB89B inset;
 }
 .index-table {
 	overflow: auto;
