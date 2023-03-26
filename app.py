@@ -35,7 +35,7 @@ def db_init(db,start_date,numweeks=8):
     #delete existing entries
     try:
         existing_days = db.session.query.all()
-        print("deleting db")
+        print("deleting Days db!")
         Day.query.delete()
         db.session.commit()
     except:
@@ -88,7 +88,6 @@ def index():
             session['username'] = 'approvedadmin'+datetime.now().strftime('%s') 
     
     admin = session.get('username','').startswith('approvedadmin')
-    print("admin = ",admin)
     days = db.session.query(Day).order_by(Day.id).all()
     return render_template('index.html',days=days,admin=admin,error=error)
 

@@ -1,21 +1,17 @@
 {% extends 'base.html' %}
 
-{% block head %}
-<div class="header-image">
-	<img src="{{ url_for('static',filename='italianfood.jpeg') }}">
-</div>
-{% endblock %}
-
 {% block body %}
-<div class="login">
+<div class="login-container">
+	<div class="login-form">
 	<form action="/login" method="POST">
-		<label>Login with cohomeal password:</label><br>
-		<input class='textinput' type="text" name="coho_password" placeholder='password'>
+		<h1>Login with coho meals password:</h1>
+		<input type="text" name="coho_password" placeholder='password'>
 		<input type="submit" name="click" value="Submit">
 	</form>
 	{% if error %}
-	<p class=error>Error: {{ error }}</p>
+		<p class=error>{{ error }}</p>
 	{% endif %}
+	</div>
 </div>
 
 {% endblock %}
